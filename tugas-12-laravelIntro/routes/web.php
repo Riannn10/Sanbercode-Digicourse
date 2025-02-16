@@ -18,4 +18,13 @@ use App\Http\Controllers\AuthController;
 Route::get('/', [DashboardController::class,'home']);
 Route::get('/daftar', [AuthController::class, 'register']);
 route::post('/welcome', [AuthController::class, 'welcome']);
+route::get('/master', function() {
+    return view ('layouts.master');
+});
+route::get('/data-table', function(){
+    return view ('data-table');
+});
+route::get('/table', function(){
+    return view ('table');
+});
 
