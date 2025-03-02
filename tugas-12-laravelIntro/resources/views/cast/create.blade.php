@@ -15,8 +15,8 @@ Add Cast
     </div>
 @endif
     @csrf
-    <div class="form-group">
-      <label>Cast Name</label> 
+    <div>
+    <label>Cast Name</label> 
       <input type="text" class="form-control" name="name" value="{{old('name')}}">
     </div>
     <div class="form-group">

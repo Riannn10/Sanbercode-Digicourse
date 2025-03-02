@@ -2,10 +2,15 @@
     <!-- Sidebar user (optional) -->
     <div class="user-panel mt-3 pb-3 mb-3 d-flex">
       <div class="image">
-        <img src="{{asset('adminlte/dist/img/user2-160x160.jpg')}}" class="img-circle elevation-2" alt="User Image">
+        <img src="{{asset('adminlte/dist/img/avatar123.png')}}" class="img-circle elevation-2" alt="User Image">
       </div>
       <div class="info">
-        <a href="#" class="d-block">Alexander Pierce</a>
+        @auth
+        <a href="#" class="d-block">{{ Auth::user()->name }}</a>
+        @endauth
+        @guest
+        <a href="#" class="d-block">Belum Login</a>
+        @endguest
       </div>
     </div>
 
@@ -27,10 +32,28 @@
         <!-- Add icons to the links using the .nav-icon class
              with font-awesome or any other icon font library -->
              <li class="nav-item">
-                <a href="../widgets.html" class="nav-link">
+                <a href="/" class="nav-link">
                   <i class="nav-icon fas fa-tachometer-alt"></i>
                   <p>
-                    Dashboard
+                    Dasboard
+                  </p>
+                </a>
+              </li>
+              @auth
+              <li class="nav-item">
+                 <a href="/genres" class="nav-link">
+                   <i class="nav-icon"></i>
+                   <p>
+                     Genre
+                   </p>
+                 </a>
+               </li>
+              @endauth
+             <li class="nav-item">
+                <a href="/film" class="nav-link">
+                  <i class="nav-icon"></i>
+                  <p>
+                    Film
                   </p>
                 </a>
               </li>
@@ -58,5 +81,16 @@
               </a>
             </li>
           </ul>
+          @auth
+          <li>
+            <form action="/logout" method="POST">
+             @csrf
+             <button type="submit" class="btn btn-danger btn-block">Logout</button>
+            </form>
+          </li>  
+          @endauth
+          @guest
+            <a href="/login" class="btn btn-danger btn-block">Login</a>
+          @endguest
         </li>
        

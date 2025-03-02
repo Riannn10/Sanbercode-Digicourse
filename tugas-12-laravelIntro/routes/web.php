@@ -4,6 +4,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CastController;
+use App\Http\Controllers\GenresController;
+use App\Http\Controllers\FilmController;
+use App\Http\Controllers\reviewController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -27,18 +30,32 @@ route::get('/data-table', function(){
 route::get('/table', function(){
     return view ('table');
 });
-// CRUD Cast
-// CREAT DATA
-Route::get('/casts/create',[CastController::class,"create"]);
-Route::post('/casts',[CastController::class,"store"]);
 
-//Read Data
-route::get('/casts', [CastController::class,"index"]);
-route::get('/casts/{casts_id}', [CastController::class,"show"]);
+Route::middleware(['auth'])->group(function () { 
+    // CRUD Cast
+    // CREAT DATA
+    Route::get('/casts/create',[CastController::class,"create"]);
+    Route::post('/casts',[CastController::class,"store"]);
+    
+    //Read Data
+    route::get('/casts', [CastController::class,"index"]);
+    route::get('/casts/{casts_id}', [CastController::class,"show"]);
+    
+    //update data
+    route::get('/casts/{casts_id}/edit', [CastController::class,"edit"]);
+    route::put('/casts/{casts_id}', [CastController::class,"update"]);
+    
+    //Delete data
+    route::delete('/casts/{casts_id}', [CastController::class, "destroy"]);
 
-//update data
-route::get('/casts/{casts_id}/edit', [CastController::class,"edit"]);
-route::put('/casts/{casts_id}', [CastController::class,"update"]);
+    //CRUD Genre
+    route::resource('genres', GenresController::class);
+    
+    route::post('review/{film_id}', [reviewController::class, "store"]);
+});
 
-//Delete data
-route::delete('/casts/{casts_id}', [CastController::class, "destroy"]);
+
+//crud film
+route::resource('film', FilmController::class);
+Auth::routes();
+
